@@ -1,28 +1,18 @@
 require("dotenv").config()
 const express = require("express")
 const app = express()
+const con = require("./models/connect")
 const port = process.env.PORT || 5500
-var mysql = require('mysql');
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: ""
-});
-
-con.connect(function(err) {
-    if (err) {
-        console.log("error in db");
-        return
-    }
-    console.log("Connected!");
-  });
-
+var result = [
+  {roll : 123},
+  {roll : 456}
+]
 
 app.set("view engine", "ejs")
 
 app.get("/", (req, res) => {
-    res.render("index")
+    res.render("index", text={fakeData:result})
 })
 
 app.listen( port, () => {
